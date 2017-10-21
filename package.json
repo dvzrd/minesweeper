@@ -1,0 +1,31 @@
+{
+  "name": "minesweeper",
+  "description": "Web browser game built with React",
+  "version": "1.0.0",
+  "author": "Damir Vazgird <dvazgird@gmail.com>",
+  "dependencies": {
+    "gatsby": "^1.9.76",
+    "gatsby-link": "^1.6.22",
+    "gatsby-plugin-react-helmet": "^1.0.8",
+    "gatsby-plugin-sass": "^1.0.12",
+    "lodash": "^4.17.4",
+    "react-typography": "^0.16.5",
+    "typography": "^0.16.6"
+  },
+  "keywords": [
+    "minsweeper",
+    "react",
+    "gatsby"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "prettier": "^1.7.4"
+  }
+}

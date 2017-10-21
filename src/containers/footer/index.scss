@@ -1,0 +1,11 @@
+@import '../../stylesheets/_variables';
+
+.footer {
+
+  .copyright.message {
+    margin: 0;
+    color: $color-neutral;
+    font-size: $three-quarters;
+    text-align: center;
+  }
+}

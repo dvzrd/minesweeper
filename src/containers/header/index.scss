@@ -1,0 +1,26 @@
+@import '../../stylesheets/_variables';
+
+.header {
+  margin-bottom: $large;
+  padding: $base;
+  background-color: $color-secondary;
+  border-bottom: $tiny solid $color-primary;
+
+  .link {
+    text-decoration: none;
+
+    .logo {
+      margin: 0;
+      color: $color-primary;
+      text-align: center;
+      transition: all $faster;
+    }
+
+    &:hover {
+
+      .logo {
+        color: $color-mono;
+      }
+    }
+  }
+}

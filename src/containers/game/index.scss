@@ -1,0 +1,6 @@
+@import '../../stylesheets/_variables';
+
+.game.section {
+  box-shadow: 0 0 $quantum $quantum $color-neutral;
+  background-color: $color-neutral-hover;
+}

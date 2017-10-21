@@ -1,0 +1,32 @@
+@import '../../stylesheets/_variables';
+
+.board.figure {
+
+  .grid.list {
+    display: flex;
+		flex-wrap: wrap;
+    margin: 0 auto;
+    list-style: none;
+    background-color: $color-mono;
+    box-shadow: 0 0 0 $atomic $color-neutral;
+
+    .item {
+      cursor: pointer;
+      flex: 1;
+      margin: 0;
+      padding: $base;
+      box-shadow: 0 0 0 $quantum $color-neutral;
+      transition: all $faster;
+
+      &:hover {
+        box-shadow: 0 0 $quantum $quantum $color-neutral inset;
+        background-color: $color-neutral;
+      }
+
+      &:active {
+        box-shadow: 0 0 0 $quantum $color-neutral;
+        background-color: $color-neutral;
+      }
+    }
+  }
+}

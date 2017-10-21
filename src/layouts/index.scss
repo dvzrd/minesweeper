@@ -1,0 +1,14 @@
+@import '../stylesheets/_variables';
+
+.layout {
+  display: flex;
+  min-height: $fluid-full;
+  flex-direction: column;
+  margin: 0 auto;
+
+  .main.content {
+    flex: 1;
+    z-index: 1;
+    background-color: $color-background;
+  }
+}
