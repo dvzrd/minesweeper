@@ -12,11 +12,10 @@ class Cell extends Component {
   }
 
   render() {
-    console.log(this.state);
-    
+    const { action } = this.props;
+
     return (
-      <li className="cell item">
-      </li>
+      <li className="cell item" onClick={action} />
     )
   }
 }

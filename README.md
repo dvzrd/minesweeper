@@ -4,7 +4,9 @@ Web browser game built with React
 
 ## Setup
 
-`npm install`
+Install gatsby-cli: `npm install --global gatsby-cli`
+
+Install node modules: `npm install`
 
 ## Develop
 
