@@ -12,10 +12,11 @@ class Game extends Component {
       lost: false,
       won: false
     }
-    // create an array for the board
-    this.board = this.generateBoard()
 
-    this.clearCell = this.clearCell.bind(this)
+    this.checkFirstColumn = this.checkFirstColumn.bind(this)
+    this.checkFirstRow = this.checkFirstRow.bind(this)
+    this.checkLastRow = this.checkLastRow.bind(this)
+    this.checkLastColumn = this.checkLastColumn.bind(this)
   }
 
   /**
@@ -58,30 +59,6 @@ class Game extends Component {
     // add the mines to the board
     for (var i = 0; i < mineLocations.length; i++) {
       this.cells[mineLocations[i]].mine = true
-    }
-  }
-
-  /**
-   * Clear cell on board. If the cell is a zero clear surrounding locations.
-   *
-   * @param i the index of the space to clear.
-   */
-  clearCell(i) {
-    if (!this.cells[i].cleared) {
-      this.cells[i].cleared = true;
-      if (this.cells[i].mine) {
-        this.setState({lost: true});
-      }
-      else {
-        // recursively clear neighbors if there are no mines
-        const mineCount = this.mineCount(i);
-        if (mineCount === 0) {
-          const neighbors = this.neighbors(i);
-          for (let i = 0; i < neighbors.length; i++) {
-            this.clearCell(neighbors[i]);
-          }
-        }
-      }
     }
   }
 
@@ -134,81 +111,6 @@ class Game extends Component {
   }
 
   /**
-   * Returns a list for all the points that are neighbors of the point.
-   *
-   * @param i the index of the point being considered.
-   * @returns
-   */
-  neighbors(i) {
-    const { options } = this.props
-    var firstRow = this.checkFirstRow(i)
-    var lastRow = this.checkLastRow(i)
-    var firstColumn = this.checkFirstColumn(i)
-    var lastColumn = this.checkLastColumn(i)
-
-    // if neighbors are already determined return them.
-    if (this.cells[i].neighborCells) {
-      return this.cells[i].neighborCells
-    }
-
-    var neighborCells = []
-    if (!firstRow && !firstColumn) {
-      neighborCells.push(i - options.width - 1)
-    }
-    if (!firstRow) {
-      neighborCells.push(i - options.width)
-    }
-    if (!firstRow && !lastColumn) {
-      neighborCells.push(i - options.width + 1)
-    }
-    if (!firstColumn) {
-      neighborCells.push(i - 1)
-    }
-    if (!lastColumn) {
-      neighborCells.push(i + 1)
-    }
-    if (!lastRow && !firstColumn) {
-      neighborCells.push(i + options.width - 1)
-    }
-    if (!lastRow) {
-      neighborCells.push(i + options.width)
-    }
-    if (!lastRow && !lastColumn) {
-      neighborCells.push(i + options.width + 1)
-    }
-
-    this.cells[i].neighborCells = neighborCells
-
-    return this.cells[i].neighborCells
-  }
-
-  /**
-   * Returns the count of mines that surround the point
-   *
-   * @param i the point to check
-   * @returns the number of mines surrounding the point
-   */
-  mineCount(i) {
-    var neighbors = this.neighbors(i)
-    var numberMines = 0
-
-    // if this is previously calculated return it
-    if (this.cells[i].mineCount) {
-      return this.cells[i].mineCount
-    }
-
-    // count mines in neighbor cells
-    for (var j = 0; j < neighbors.length; j++) {
-      if (this.cells[neighbors[j]].mine) {
-        numberMines++
-      }
-    }
-
-    this.cells[i].mineCount = numberMines
-    return this.cells[i].mineCount
-  }
-
-  /**
    * Clears the entire board.
    */
   clearBoard() {
@@ -240,16 +142,24 @@ class Game extends Component {
   }
 
   renderGrid() {
-    const grid = this.board;
+    const { options } = this.props
+    const grid = this.generateBoard()
+    const actions = {
+      checkFirstColumn: this.checkFirstColumn,
+      checkFirstRow: this.checkFirstRow,
+      checkLastColumn: this.checkLastColumn,
+      checkLastRow: this.checkLastRow
+    }
 
     return (
       <figure className="board figure">
         <ul className="grid list">
           {grid.map(cell => (
             <Cell key={cell.key}
-                  cleared={cell.cleared}
-                  mine={cell.mine}
-                  action={this.clearCell} />
+                  options={options}
+                  cell={cell}
+                  grid={grid}
+                  actions={actions} />
           ))}
         </ul>
       </figure>
